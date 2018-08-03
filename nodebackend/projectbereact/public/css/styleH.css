@@ -1,0 +1,332 @@
+/* Header Parts */
+.header1{text-align:right; background:rgb(46, 117, 182); padding-right:20px; color:white; position:fixed; height:55px;}
+.bgw { background:rgba(43, 108, 168, 0.897); position:fixed; margin-top: -10; height:65px; z-index: 1 }
+.bgw0 { background:rgb(46, 117, 182, 0.897); position:fixed; margin-top: -10; height:65px; z-index: 1 }
+.container-fluid1{background:rgb(46, 71, 182); height:75px; padding-top: 5px; }
+.nav1{text-align:center; background:rgb(91, 155, 213); padding-right:5px; list-style:none; float:right; margin-right: 5px;margin-bottom: 7px }
+.navH0 {padding-top: 18px; color:white } 
+.navH {padding-top: 35px; }
+.navH a {color:white}
+.navH0 a {color:white; font-size: 17px}
+.TLogo {position:absolute; top:15; left:5; margin-bottom: 5px; height: 3%; width: 3%}
+.TLogo0 {position:absolute; top:15; left:5; margin-bottom: 5px; height: 3%; width: 3%}
+
+
+
+
+.sml{position:absolute; right:0.5%; font-size: 11px; line-height: 3px; color:white}
+
+/* bootstrap dropdown-list modified to make center */
+.ddc { position: absolute; right: 40%; left: 40% }
+
+
+
+/* Body Gambar Utama Parts */
+.gambarT { margin-top: 10px; overflow: hidden;
+    background:url("../img/oasis.jpg");
+    /* width:90%;   */
+    height:800px;
+    padding-right:20px; 
+    padding-top: 55px;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+    text-align: center;
+    color:goldenrod;
+    position: relative;
+}
+.box-hitam-opaque {
+    background-color: rgba(0, 0, 0, 0.274);
+    color: white;
+    width: 100%;
+    position: absolute;
+    bottom: 15%;
+    left: 0;      
+}
+
+/* Text-Box tengah */
+.texbox { height: 150px; background-color: rgba(0, 0, 0, 0.021); margin-bottom: 20px }
+
+/* New Item product box */
+.artikel{ background:#ffffff; padding:10px; margin-bottom:30px; overflow:hidden;}
+.artikel img{ float:left; margin-right:10px; width:200px; height:165px }
+.artikel b{ color:#616060; background:#DDDDDD; padding:3px; font-size:12px; font-weight:bold; margin-right:10px; }
+.artikel p{ margin:10px 0; }
+.artikel a{ display:block; text-align:left; color:#636363; padding-top: 15px }
+
+.teks {padding-top: 3%}
+
+/* -----------------------------------------------------------Footer -------------------------------------------------------------- */
+.imgicon {text-align: center; background:rgb(31, 78, 121); padding-bottom: 5px; padding-top: 5px }
+.imgicon img {margin:auto; padding-top:0%; padding-bottom:0%; }
+.layer {background:rgb(31, 78, 121);}
+/* .ft { float: bottom; width: 100%} */
+/* width:20%; height:17% */
+/* ------------------------------------------------------------End of Footer ----------------------------------------------------- */
+
+/* ------------------------------------------------- Page Item Details Specifics -------------------------------------------------- */
+
+.gp {  overflow: hidden;
+    /* background-color: #616060; */
+    /* width:70%;   */
+    /* height:70%; */
+    /* padding-right:20px; 
+    padding-top: 35px; */
+    /* background-size:contain;
+    background-repeat:no-repeat; */
+    /* background-position:center; */
+    text-align: center;
+    /* color:goldenrod;
+    position: relative; */
+    margin-top: 7%;
+    margin-bottom: 2%
+}
+/* .gp img { height:50%; width:50% } */
+.gpt {text-align:center; display: inline-block; background:rgb(91, 155, 213); padding-right:10px; list-style:none; 
+    color:white; margin-bottom: 7px; padding:7px 0 6px 0; height:34px; margin-right: 10px; }
+
+/* float:left; margin-left: 30% ; margin-right:-28%;  */
+
+/* ------------------------------------------------- List of Items Specifics ------------------------------------------------------- */
+
+/* Header Item List */
+.TLogo1 {position:absolute; top:-6; left:5; margin-bottom: 5px; margin-right: 25px; height: 3%; width: 3%}
+.navT {margin-left: 20px; padding-top: 4px }
+.nav2 {margin-right: -15px;}
+.them {background:rgba(43, 108, 168, 0.897);  }
+
+/* navbar custom */
+.navbar-custom {
+    background-color: rgb(46, 117, 182, 0.897);
+    border-color: rgb(172, 172, 172);
+    border-radius: 0;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus {
+    color: #FFF;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color: #FFF;
+}
+
+.navbar-custom .navbar-nav > li > a:hover,
+.navbar-custom .navbar-nav > li > a:focus {
+    color: rgb(189, 189, 189);
+    background-color: transparent;
+}
+
+.navbar-custom .navbar-nav > .active > a,
+.navbar-custom .navbar-nav > .active > a:hover,
+.navbar-custom .navbar-nav > .active > a:focus {
+    color: wheat;
+    /* background-color: rgb(46, 117, 182, 0.897); */
+}
+
+.navbar-custom .navbar-text {
+    color: #FFF;
+}
+
+.navbar-custom .navbar-toggle {
+    border-color: rgb(46, 117, 182, 0.897);
+}
+
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+    background-color: maroon;
+}
+
+.navbar-custom .navbar-toggle .icon-bar {
+    background-color: #FFF;
+}
+/* end of navbar customised */
+
+
+
+/* Center cards */
+cardFloat { margin:0 auto;}
+.cardFloat img {width: 475; height:250;}
+.row {margin-left:0px}
+.row card {margin: 0 auto}
+
+div.card {
+    width: 390;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    /* background-color: wheat; */
+    padding: 0 0 10 0 
+    
+}
+
+.card p {margin: -10 0 5 ; padding:2px}
+.card img {margin-bottom: 5px}
+
+
+
+/* bootstrap dropdown-list modified to make just beneath each merchant and category dropdown-list */
+.ddlm { position: absolute; top: 9%; left:5px }
+.ddlc { position: absolute; top: 36%; left:5px }
+
+/* ------------------------------end of item lists page styling------------------------------------------------ */
+
+/* --------------------------------------------- style for my cart ---------------------------------------------------- */
+
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 600px) {
+  table#cart tbody td .form-control {
+    width: 20%;
+    display: inline !important;
+  }
+  .actions .btn {
+    width: 36%;
+    margin: 1.5em 0;
+  }
+  .actions .btn-info {
+    float: left;
+  }
+  .actions .btn-danger {
+    float: right;
+  }
+  table#cart thead {
+    display: none;
+  }
+  table#cart tbody td {
+    display: block;
+    padding: .6rem;
+    min-width: 320px;
+  }
+  table#cart tbody tr td:first-child {
+    background: #333;
+    color: #fff;
+  }
+  table#cart tbody td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    display: inline-block;
+    width: 8rem;
+  }
+  table#cart tfoot td {
+    display: block;
+  }
+  table#cart tfoot td .btn {
+    display: block;
+  }
+}
+
+/* ------------------------------------------End of styling for my cart ---------------------------------------------------- */
+
+/* -------------------------------------------Style for My Invoice---------------------------------------------------------- */
+.invoice-title h2, .invoice-title h3 {
+    display: inline-block; color: rgb(31, 78, 121);
+}
+.table > tbody > tr > .no-line {
+    border-top: none;
+    color: rgb(31, 78, 121)
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+    color: rgb(31, 78, 121)
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+    color: rgb(31, 78, 121)
+}
+/* ------------------------------------------- end of for my invoice styling --------------------------------------- */
+
+/* --------------------------- Register Page, Login Page & Admin Login Page & Admin Home and Logged-In---------------------------------- */
+#registerpage { 
+    background: url("../img/abst2.jpg") no-repeat center center fixed; 
+    /* -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; */
+    background-size: cover;
+    height: 800px;
+}
+
+#loginpage { 
+    background: url("../img/hptr.jpg") no-repeat center center fixed; 
+    /* -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; */
+    background-size: cover;
+    height: 800px;
+}
+
+
+   #admloginpage { 
+    background: url("../img/redkb.jpg") no-repeat center center fixed; 
+    /* -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; */
+    background-size: cover;
+    height: 800px;
+   }
+
+   #admH0 { 
+    background: url("../img/squirel.jpg") no-repeat center center fixed; 
+    /* -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; */
+    background-size: cover;
+    height: 800px;
+   }
+
+   #admH { 
+    background: url("../img/samurai.jpg") no-repeat center center fixed; 
+    /* -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; */
+    background-size: cover;
+    margin-top: -100px;
+    padding-top: 100px;
+    height: 1300px
+   }
+   .panel-default {
+    opacity: 0.95;
+    margin-top:50px;
+   }
+
+   .panel-danger {
+    opacity: 0.8;
+    margin-top:50px;
+   }      
+
+   .form-group.last {
+    margin-bottom:0px;
+   }
+
+   /* font-awesome search icon in the input text */
+   .search {
+    position: relative;
+    color: #aaa;
+    font-size: 16px;
+    margin:10px
+  }
+  
+  .search input {
+    width: 250px;
+    height: 32px;
+  
+    background: #fcfcfc;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+  }
+  
+  .search input { text-indent: 32px;}
+  .search .fa-search { 
+    position: absolute;
+    top: 8px;
+    left: 10px;
+  }
+  /* ------------- end of font-awesome search in text box --------------- */
