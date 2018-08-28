@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Link, Route} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import {connect} from 'react-redux'; // untuk proteksi, library {connect} sudah methodnya
+
+// ini store redux yang menyimpan data user yang berhasil login buat meng-access rights ke laman KOMPONEN ini //
+function mapStateToProps(state){
+    return {
+        login: state.hasil_login
+    };
+}
+// end of redux store //
 
 class FormEdit extends Component {
     state = {
         id: '',
         namaproduk: '',
         hargaproduk: '',
-        foto: ''
+        foto: '',
+        redirect:false,
+        
     }
 
     // Untuk memunculkan data yang di-refer of id yang dituju di database
     componentDidMount(){
-        var id = this.props.location.state.produkID;
+        var id = this.props.location.state.produkID ;
          
         axios.get('http://localhost:3003/editdata/'+ id)
             .then ((hasilDariDatabase) => {
@@ -26,7 +37,8 @@ class FormEdit extends Component {
                     kategoriproduk: hasilDariDatabase.data[0].category,
                     PNproduk: hasilDariDatabase.data[0].part_no,
                     unitproduk: hasilDariDatabase.data[0].uom,
-                    detilproduk: hasilDariDatabase.data[0].Long_desc
+                    detilproduk: hasilDariDatabase.data[0].Long_desc,
+                    gambarproduk: hasilDariDatabase.data[0].id_pics
                 })
             }
         )
@@ -58,7 +70,7 @@ value = (e) => {
         })
     }
 
-upbahData = (e) => {
+updateData = (e) => {
     e.preventDefault(); // spy tidak terjadi pengulangan 2x
     let formData = new FormData();
     formData.append('file', this.state.foto);   // 'file' untuk di-refer ke backend, .foto adalah dari foto: e.target.files[0] di atas
@@ -73,7 +85,10 @@ upbahData = (e) => {
     formData.append('detilproduk', this.state.detilproduk);
 
     axios.post('http://localhost:3003/ubahData/', formData);
-    }
+    
+    this.setState({redirect:true})
+
+}
 
 //     ubahData = (e) => {
 //       axios.post(`http://localhost:3003/ubahData`, {
@@ -88,14 +103,47 @@ upbahData = (e) => {
 //             detilproduk: e.detilproduk.value
 //         });
 //   }
- 
+
+
+constructor(props) {
+    super(props);
+    this.state = {
+      value: 'Test On-change in your text-area form', 
+      detilproduk: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    
+  }
+
+  handleChange(event) {
+    this.setState({detilproduk: event.target.value});
+  }
+
+
   render() {
+
+    
+    if(this.state.redirect){
+        return <Redirect to='/productlist'/>
+    }
+
+
     return (
       <div className="container">
         <form className="form-horizontal" onSubmit={this.updateData} encType="multipart/form-data">
             <fieldset>
                 <legend>Edit Data</legend>
+                
                 <input ref="idproduk" type="hidden" defaultValue={this.state.idproduk}/>
+
+                <div className="form-group">
+                    <label className="col-lg-2 control-label ">Product Picture</label>
+                    <div className="text-center">
+                    <img src={'http://localhost:3003/tampunganFile/'+ this.state.gambarproduk} style={{width: 200}} alt='gambar produk'/>
+                    </div>
+                </div>
+
                 <div className="form-group">
                     <label className="col-lg-2 control-label">Description</label>
                     <div className="col-lg-10">
@@ -145,13 +193,13 @@ upbahData = (e) => {
                     </div>
                 </div>
 
-                <div className="form-group">
-                    <label className="col-lg-2 control-label">Foto Produk</label>
-                    <div className="col-lg-10">
+                {/* <div className="form-group"> */}
+                    {/* <label className="col-lg-2 control-label">Foto Produk</label> */}
+                    {/* <div className="col-lg-10"> */}
                         {/* name= pasangannya dengan onChange */}
-                        <input name="fotoproduk" onChange={this.onchange} type="file"  className="form-control" /> 
-                    </div>
-                </div>
+                        {/* <input name="fotoproduk" onChange={this.onchange} type="file"  className="form-control" />  */}
+                    {/* </div> */}
+                {/* </div> */}
 
 
                 {/* <div className="form-group">
@@ -165,7 +213,7 @@ upbahData = (e) => {
                 <div className="form-group">
                     <label className="col-lg-2 control-label">Complete Description</label>
                     <div className="col-lg-10">
-                        <textarea ref="detilproduk" rows="6"  className="form-control" placeholder="Harga produk ..." > Paste and Edit Here </textarea>
+                        <textarea ref="detilproduk" rows="6"  className="form-control" placeholder="Harga produk ..." value={this.state.detilproduk} onChange={this.handleChange}/> 
                     </div>
                 </div>
 
@@ -179,8 +227,8 @@ upbahData = (e) => {
                 <div className="form-group">
                     <div className="col-lg-10 col-lg-offset-2">
                     <Link to= "/productlist" type="reset" className="btn btn-info"> <i className="fas fa-arrow-circle-left"></i> &nbsp;Cancel</Link>&nbsp;
-                    <button type="submit" onClick={() => this.value(this.refs)} className="btn btn-warning"> <i className="far fa-paper-plane"></i> &nbsp;Submit</button>
-                        
+                    <button type="submit" onClick={() => this.value(this.refs)} className="btn btn-warning"> <i className="far fa-paper-plane"></i> &nbsp;Submit</button> &nbsp;
+                    
                         {/* <button type="button" onClick={() => this.ubahData(this.refs)} className="btn btn-warning"> <i className="far fa-paper-plane"></i> &nbsp;Submit</button> */}
                     </div>
                 </div>
@@ -191,4 +239,7 @@ upbahData = (e) => {
     )
   }
 }
-export default FormEdit
+export default connect(mapStateToProps) (FormEdit);
+
+
+

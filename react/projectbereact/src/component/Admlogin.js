@@ -4,6 +4,14 @@ import {Link} from 'react-router-dom' /* by default (for changing pages from lin
 import Axios from 'axios';
 import {Redirect} from 'react-router-dom'; // untuk fungsi redirect setelah suatu kondisi tertentu
 import {connect} from 'react-redux'; // untuk proteksi, library {connect} sudah methodnya
+import Cookies from 'universal-cookie'
+
+////// Cookies
+
+const cookies = new Cookies();
+
+/////
+
 
 ////// ini store redux yang menyimpan data user yang berhasil login buat access rights ke laman KOMPONEN selanjutnya  /////////
 function mapStateToProps(state){
@@ -20,10 +28,9 @@ class Admlogin extends Component {
     status: <br/>,
     masuklaman: false,
     validasilogin: ''
-
   }
 
- kirim(obj){
+  kirim(obj){
     var self = this
     Axios.post('http://localhost:3003/loginAdmin',
       {
@@ -31,49 +38,63 @@ class Admlogin extends Component {
         loginputpassword: obj.password.value
 
       }).then((response) => {
-              // console.log(Response.data);
-        //self.setState({masuk: Response.data})
-        // self.setState({validasilogin:response.data}) // cara Ade
-        
+                     
         var validasilogin = response.data;
-        self.props.dispatch({type:'Login', kirim: validasilogin})
-        self.setState({
-              masuklaman: true
-            })
 
-        // if (validasilogin === 1)
-        // {
-        //   console.log(validasilogin);
-        //   self.setState({
-        //     masuklaman: true
-        //   })
-        // }
-        // else if (validasilogin === 0)
-        // {
-        //   console.log(validasilogin);
-        //   self.setState({
-        //     status: 'Username dan/atau password anda salah / bukan Admin role'
-        //   })
-        // }
+        if (validasilogin !== 0) {
+          cookies.set('sessionID', validasilogin, { path: '/' });
 
+          self.setState({
+                masuklaman: true
+              })
+        }
+
+        else {
+            self.setState({
+            status: 'Login failed: Un-authorized access, not an Admin !!'
+          })
+        }
+
+        console.log(validasilogin);
+        
+        
       });
-      //console.log(self.state.masuk);
-      //console.log(obj.nama.value);
-      //this.props.dispatch({type:'Login', kirim: this.state.validasilogin}) //cara Ade
-  // di bawah ini fungsi untuk mnegirim tipe kasus di redux
-    // self.props.dispatch({type:'Login', kirim: this.state.validasilogin})
     }
 
-  // passedRedirect = () => {
-  //   if (this.state.masuklaman) {
-  //     return <Redirect to='/productlist'/>
-  //   }
+
+// Cara Ade dengan redux ////
+
+  // state = 
+  // {
+  //   status: <br/>,
+  //   masuklaman: false,
+  //   validasilogin: ''
+
   // }
+
+//  kirim(obj){
+//     var self = this
+//     Axios.post('http://localhost:3003/loginAdmin',
+//       {
+//         loginputnama: obj.nama.value,
+//         loginputpassword: obj.password.value
+
+//       }).then((response) => {
+                     
+//         var validasilogin = response.data;
+//         self.props.dispatch({type:'Login', kirim: validasilogin})
+//         self.setState({
+//               masuklaman: true
+//             })
+        
+//       });
+//     }
+// // Cara Redux //
 
 
   render() {
     if (this.state.masuklaman) {
-          return <Redirect to='/ListProd'/>
+          return <Redirect to='/productlist'/>
         }
 
     return (
@@ -95,13 +116,13 @@ class Admlogin extends Component {
                       </figure>
                     </div>
                     <div className="panel-body">
-                      {/* <form className="form-horizontal" role="form"> */}
+                      <form className="form-horizontal" role="form">
                         <div className="form-group">
                           <label className="col-sm-3 control-label" htmlFor="inputName3">
                             Username</label>
                           <div className="col-sm-9">
                             <input className="form-control" ref="nama" id="inputNama3" required type="text" placeholder="Username" />
-                          </div>
+                          </div> &nbsp;
                         </div>
                         <div className="form-group">
                           <label className="col-sm-3 control-label" htmlFor="inputPassword3">
@@ -113,15 +134,15 @@ class Admlogin extends Component {
                           </div>
                         </div>
                         <div className="form-group">
-                          <div className="col-sm-offset-3 col-sm-9">
-                            <div className="checkbox">
+                          <div className="col-sm-offset-1 col-sm-12">
+                            {/* <div className="checkbox"> */}
                               {/* <label>
                                               <input type="checkbox">
                                               Remember me
                                           </label> */}
-                                          <p>{this.props.login}</p>
-                            </div>
-                          </div>
+                                          <span style={{color: 'red'}}>{this.props.login}</span>
+                            {/* </div> */}
+                          </div> &nbsp;
                         </div>
                         <div className="form-group last">
                           <div className="col-sm-offset-1 col-sm-11 text-center">
@@ -133,7 +154,7 @@ class Admlogin extends Component {
                               Forgot My Password</button>
                           </div>
                         </div>
-                      {/* </form> */}
+                      </form>
                     </div>
                     <div className="panel-footer text-center">
                       Welcome Admin

@@ -5,17 +5,27 @@ import NavbarYeti from './NavbarYeti';
 import {connect} from 'react-redux'; // untuk proteksi, library {connect} sudah methodnya
 import {Redirect} from 'react-router-dom'; // untuk fungsi redirect setelah suatu kondisi tertentu
 
-// ini store redux yang menyimpan data user yang berhasil login buat meng-access rights ke laman KOMPONEN ini //
+/////////// A. Cookies  ///////////////////
+import Cookies from 'universal-cookie'
+
+/////////// A. Cookies  ///////////////////
+
+    const cookies = new Cookies();
+
+///////////Cookies-end///////////////////
+
+////// ini store redux yang menyimpan data user yang berhasil login buat meng-access rights ke laman KOMPONEN ini //
 function mapStateToProps(state){
     return {
         login: state.hasil_login
     };
 }
-// end of redux store //
+/////// end of redux store /////////
 
 class ListProd extends Component {
   state = {
       dataproduk: [],
+      redirect: false
   }
   componentDidMount(){
       axios.get(`http://localhost:3003/productlist`).then(
@@ -28,17 +38,42 @@ class ListProd extends Component {
           }
       )
   }
+
+    /////// B. KHUSUS fungsi ini untuk LOGOUT button ///////////////
+        keluar = () => {
+            cookies.remove('sessionID')
+            this.setState({
+                redirect : true
+            }) 
+            
+        }
+    ////////////////////// LOGOUT button ////////////////////////////
+
   render() {
     console.log(this.props.login);
-    // Authentication prior to accessing this page
-    if (this.props.login != "1"){
-        {this.state.redirect=true}
-        this.props.dispatch({type:'Login', kirim: "gagal un-authorized access"})
-    }
+    
+    ////// B. fungsi ini untuk logout button ////////
+        if (this.state.redirect ) {
+            return <Redirect to='/adminmasuk'/>
+        }
+    ////////////// logout button /////////////////
 
-    if(this.state.redirect){
-        return <Redirect to='/adminmasuk'/>
-    }
+    ///////// A. Fungsi Wajib Untuk Setiap Component yang perlu proteksi login //////////////
+        if (cookies.get('sessionID') == undefined ) {
+            return <Redirect to='/adminmasuk'/>
+        }
+    /////////// Khusus buat proteksi komponen tanpa ada logout button /////////////////////
+
+
+    // Authentication prior to accessing this page
+    // if (this.props.login != "1"){
+    //     {this.state.redirect=true}
+    //     this.props.dispatch({type:'Login', kirim: "Gagal Login: Un-authorized access !!"})
+    // }
+
+    // if(this.state.redirect){
+    //     return <Redirect to='/adminmasuk'/>
+    // }
 
     const hasil = this.state.dataproduk.map(
         (isi, index) => {               // index tidak mengambil dari id database, tapi langsung di frontend nya, shg no. urut independent mulai dari 1 (index + 1)
@@ -51,6 +86,7 @@ class ListProd extends Component {
             var kategoriproduk = isi.category; // .category = mengambil data dari table-column "category" yg ditargetkan di server port 3003
             var merekproduk = isi.brand; // .brand = mengambil data dari table-column "brand" yg ditargetkan di server port 3003
             var produkID = isi.id; // .id = mengambil data dari table-column "id" yg ditargetkan di server port 3003
+            var gambar = isi.id_pics; // .id = mengambil data dari table-column "id" yg ditargetkan di server port 3003
                                          // target database dan data-table terdapat dalam file appbackend.js (nodeJS yg terhubung dg database)
             return <tr key={index} style={{textAlign: 'center'}}>
             <td>{urut}</td>
@@ -61,10 +97,12 @@ class ListProd extends Component {
             <td>{unitproduk}</td>
             <td>{kategoriproduk}</td>
             <td>{merekproduk}</td>
+            <td>{gambar}</td>
             <td>
                 <Link to={{pathname: "/displayproductdata/", state: {produkID:produkID}  }}  className="btn btn-info btn-sm"> <i className="far fa-eye"></i> &nbsp; Display </Link > &nbsp;
                 <Link to={{pathname: "/editproductdata/", state: {produkID:produkID}  }}  className="btn btn-warning btn-sm"> <i className="far fa-edit"></i> &nbsp; Edit </Link > &nbsp;
-                <Link to={{pathname: "/hapusdata/", state: {produkID:produkID}  }}  className="btn btn-danger btn-sm"> <i className="far fa-trash-alt"></i> &nbsp; Delete </Link > 
+                <Link to={{pathname: "/addeditpic/", state: {produkID:produkID}  }}  className="btn btn-success btn-sm"> <i className="far fa-edit"></i> &nbsp; Add Pic </Link > &nbsp;
+                <Link to={{pathname: "/fdeleteproductdata/", state: {produkID:produkID}  }}  className="btn btn-danger btn-sm"> <i className="far fa-trash-alt"></i> &nbsp; Delete </Link > 
                 
             </td>
         </tr>
@@ -75,7 +113,9 @@ class ListProd extends Component {
     {/* di bawah ini artinya by default semua laman mengandung navbar yang dirender dari component file NavbarYeti.js */}
     <NavbarYeti />
 
-      <div className="container">
+        {/* <button onClick={() => this.keluar()}> Logout </button> */}
+
+      <div className="container-full">
         <table className="table table-striped table-hover table-bordered">
         <thead>
             <tr>
@@ -87,6 +127,7 @@ class ListProd extends Component {
                 <th style={{textAlign: 'center'}}>UOM</th>
                 <th style={{textAlign: 'center'}}>Category</th>
                 <th style={{textAlign: 'center'}}>Brand</th>
+                <th style={{textAlign: 'center'}}>Pic Description</th>
                 <th style={{textAlign: 'center'}}>Actions</th>
             </tr>
         </thead>

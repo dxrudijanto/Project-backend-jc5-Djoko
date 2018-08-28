@@ -1,8 +1,54 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Route} from 'react-router-dom';
+import axios from 'axios';
+import {connect} from 'react-redux'; // untuk proteksi, library {connect} sudah methodnya
+import {Redirect} from 'react-router-dom'; // untuk fungsi redirect setelah suatu kondisi tertentu
+
+/////////// A. Cookies  ///////////////////
+import Cookies from 'universal-cookie'
+
+/////////// A. Cookies  ///////////////////
+
+    const cookies = new Cookies();
+
+///////////Cookies-end///////////////////
+
+
+
+// ini store redux yang menyimpan data user yang berhasil login buat meng-access rights ke laman KOMPONEN ini //
+function mapStateToProps(state){
+    return {
+        login: state.hasil_login
+    };
+}
+// end of redux store //
+
+
 
 class NavbarYeti extends Component {
+
+    state = {
+        redirect: false
+    }
+
+    /////// B. KHUSUS fungsi ini untuk LOGOUT button ///////////////
+    keluar = () => {
+        cookies.remove('sessionID')
+        this.setState({
+            redirect : true
+        }) 
+        
+    }
+    ////////////////////// LOGOUT button ////////////////////////////
+
   render() {
+
+        ////// B. fungsi ini untuk logout button ////////
+            if (this.state.redirect ) {
+                return <Redirect to='/adminmasuk'/>
+            }
+        ////////////// logout button /////////////////
+
     return (
       <div>
         {/* start of Navbar */}
@@ -19,8 +65,9 @@ class NavbarYeti extends Component {
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul className="nav navbar-nav">
-                <li className="active"><a href="/adminmasuk">Logout <span className="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
+                <li className="active"><a onClick={() => this.keluar()}>Logout <span className="sr-only">(current)</span></a></li>
+                {/* <button onClick={() => this.keluar()}> Logout </button> */}
+                <li><Link to="/reguser">Add User</Link></li>
                 <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span className="caret" /></a>
                 <ul className="dropdown-menu" role="menu">
@@ -36,6 +83,11 @@ class NavbarYeti extends Component {
                     {/* di sini Link memanggil komponen Form.js yg didefine sbg komponen dari laman /tambahdata (cek di App.js react)  */}
                     <li className="divider" />
                     <li><Link to="/deletedproductlist">Kembalikan Data Terhapus</Link></li>  
+                    <li className="divider" />
+                    <li><Link to="/userlist">View User List</Link></li>
+                    <li className="divider" />
+                    <li><Link to="/reguser">Register a User</Link></li>
+
                 </ul>
                 </li>
             </ul>
@@ -46,7 +98,8 @@ class NavbarYeti extends Component {
                 <button type="submit" className="btn btn-default">Submit</button>
             </form>
             <ul className="nav navbar-nav navbar-right">
-                <li><a href="/productlist">Home</a></li>
+            <li><Link to="/productlist">Home</Link></li> 
+                {/* <li><a href="/productlist">Home</a></li> */}
             </ul>
             </div>
         </div>
@@ -58,4 +111,4 @@ class NavbarYeti extends Component {
   }
 }
 
-export default NavbarYeti;
+export default connect(mapStateToProps) (NavbarYeti);

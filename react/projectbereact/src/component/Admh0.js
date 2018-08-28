@@ -28,7 +28,7 @@ class Admh0 extends Component {
             <ul className="nav navbar-nav navT">
               <li className="nav2 active"><a href="#">Home</a></li>
               <li className="nav2"><a href="/adminmasuk">Admin Login</a></li>
-              <li className="nav2"><a href="/reguser">Register User</a></li>
+              <li className="nav2"><a href="/loginuser">User Sign-in</a></li>
             </ul>
             <i className="far fa-user navbar-right" style={{color: 'white', margin: '19 10 0 0'}} />
             <b className="navbar-right" style={{margin: '21 5 0 0', color: 'white', fontSize: 10}}> Sign-In Required to Access </b>

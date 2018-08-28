@@ -5,13 +5,13 @@ import Axios from 'axios';
 import {Redirect} from 'react-router-dom'; // untuk fungsi redirect setelah suatu kondisi tertentu
 import {connect} from 'react-redux'; // untuk proteksi, library {connect} sudah methodnya
 
-// ini store redux yang menyimpan data user yang berhasil login buat meng-access rights ke laman KOMPONEN ini //
-function mapStateToProps(state){
-  return {
-      login: state.hasil_login
-  };
-}
-// end of redux store //
+// //// ini store redux yang menyimpan data user yang berhasil login buat meng-access rights ke laman KOMPONEN ini //
+// function mapStateToProps(state){
+//   return {
+//       login: state.hasil_login
+//   };
+// }
+// //// end of redux store //
 
 class RegisterUser extends Component {
 
@@ -25,6 +25,10 @@ class RegisterUser extends Component {
       {
         reginputnama: obj.nama.value,
         reginputemail: obj.email.value,
+
+        reginputtel_no: obj.tel_no.value,
+        reginputhp_no: obj.hp_no.value,
+        
         reginputpassword: obj.password.value,
         reginputnamalengkap: obj.namalengkap.value,
         reginputalamat: obj.alamat.value,
@@ -76,11 +80,27 @@ class RegisterUser extends Component {
                       </div>
 
                       <div className="form-group">
+                        <label htmlFor="inputCompName3" className="col-sm-3 control-label">
+                          Telephone Number</label>
+                        <div className="col-sm-9">
+                          <input type="text" ref="tel_no" className="form-control" id="inputNama3" placeholder="enter your telephone here" required />
+                        </div>
+                      </div>
+
+                      <div className="form-group">
+                        <label htmlFor="inputCompName3" className="col-sm-3 control-label">
+                          Cellular Number</label>
+                        <div className="col-sm-9">
+                          <input type="text" ref="hp_no" className="form-control" id="inputNama3" placeholder="enter your handphone here" required />
+                        </div>
+                      </div>
+
+                      <div className="form-group">
                         <label htmlFor="inputAddress" className="col-sm-3 control-label">
                           Home Address</label>
                         <div className="col-sm-9">
                           {/* <input type="text" ref="alamat" className="form-control" id="inputNama3" placeholder="enter your complete name here" required /> */}
-                          <textarea ref="alamat" rows="3"  className="form-control" placeholder="enter your complete name here..." defaultValue={""} />
+                          <textarea ref="alamat" rows="3"  className="form-control" placeholder="enter your complete address..." defaultValue={""} required/>
                         </div>
                       </div>
 
@@ -100,7 +120,7 @@ class RegisterUser extends Component {
                       </div>
                       <div className="form-group last">
                         <div className="col-sm-offset-4 col-sm-2 text-center">
-                          <Link to= "/userlist"  className="btn btn-primary btn-sm" onClick={() => this.kirim(this.refs)} >
+                          <Link to= "/loginuser"  className="btn btn-primary btn-sm" onClick={() => this.kirim(this.refs)} >
                             Register</Link> 
                         </div>&nbsp;
                         <div className="col-sm-offset-1 col-sm-2 text-center">
@@ -133,4 +153,5 @@ class RegisterUser extends Component {
 
 
 
-export default connect(mapStateToProps) (RegisterUser)
+// export default connect(mapStateToProps) (RegisterUser)
+export default RegisterUser
